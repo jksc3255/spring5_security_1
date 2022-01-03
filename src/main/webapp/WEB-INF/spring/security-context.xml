@@ -7,11 +7,24 @@
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
       
      <http>
+     
+		<intercept-url pattern="/security/all" access="permitAll"/>
+		<intercept-url pattern="/security/member" access="hasRole('ROLE_MEMBER')"/>
+		<!-- 
+		<intercept-url pattern="/security/member" access="permitAll"/>
+		 -->
      	<form-login/>
      </http>
      
+     	
+    
      <authentication-manager>
-     
+     <authentication-provider> 
+       <user-service> 
+         <user name="member" password="{noop}member" authorities="ROLE_MEMBER" /> 
+         <user name="mananger" password="{noop}mananger" authorities="ROLE_MEMBER" /> 
+       </user-service> 
+     </authentication-provider>
      </authentication-manager>
 
 </beans:beans>
